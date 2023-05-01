@@ -58,7 +58,7 @@ $$
     :=\prod_{t=1}^{T}\mathcal{N}(x_{t};\sqrt{1-\beta_{t}} x_{t-1},\ \beta_{t}\bf I)
 $$
 
-Where $T$ is the total number of timesteps, $\beta_t$ is the variance schedule, where $\beta_t \in (0,1)$ and $\beta_{1} < \beta_{2}...$, it describes the amount of noise we want to add to each timestep. This schedule can simply be set as linear,
+Where $T$ is the total number of timesteps, $\beta_t$ is the variance schedule, where $\beta_t \in (0,1)$ and $\beta_{1} < \beta_{2}...$, it describes the amount of noise we want to add to each timestep. This schedule can simply be set as linear, however, a cosine schedule has been proven to improve the performance of the model\cite{nichol2021improved} as it smooths out the rate at which the data is destroyed.
 
 \subsection{The Reverse Process}
 
@@ -79,7 +79,7 @@ Where $X_{t-1}$ is predicted using the current timestep.
 
 \subsection{Timestep Embedding}
 
-Timestep Embedding, or positional embedding, is used to ensure that the model can "know" where 
+Timestep Embedding, or positional embedding, is used to ensure that the model can "know" where
 
 Another thing that I need to touch on is the position embedding, because the model depends on t, in terms of knowing what is the noise level is at any given step, what essentially is done is the timestep is embedded into the input using what is called sinusoidal position embedding. How this is integrated is that a vector is generated for each step and is passed alongside the input data into the U-net model as an additional channel. This embedding helps capture the dynamics of the data over time.
 
@@ -95,6 +95,8 @@ Another thing that I need to touch on is the position embedding, because the mod
 \subsection{Sampling}
 
 \subsection{Simplified Example}
+
+Unfortunately, due to time constraints, I had to reduce the timesteps as to allow the model to converge faster and ensure it did not get stuck at some local optima. Naturally, however, this did affect the final output.
 
 \subsection{Improvements}
 
