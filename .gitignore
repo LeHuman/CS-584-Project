@@ -1,0 +1,35 @@
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.gz
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+data/
+.ipynb_checkpoints/
+
+# Datasets
+bunnyset/
+cifar-10-batches-py/
+FashionMNIST/
+MNIST/
+food-101/
+oxford-iiit-pet/
+stanford_cars/
+
+ignore/

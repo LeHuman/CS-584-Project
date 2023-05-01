@@ -1,0 +1,87 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{pgfgantt}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{%
+Diffusion Models for Machine Learning \\
+\huge CS 584 Project Proposal}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Isaias Rivera}
+    \IEEEauthorblockA{\textit{College of Computing} \\
+        \textit{Illinois Institute of Technology}\\
+        Chicago, Illinois, USA \\
+        irivera3@hawk.iit.edu}
+}
+
+\maketitle
+
+\section{Introduction}
+
+Diffusion models are a type of generative model that utilizes the principles of diffusion to generate realistic data. There are different types of diffusion models
+that have the same underlying idea including, diffusion probabilistic models, noise-conditioned score network,
+and denoising diffusion probabilistic models \cite{weng2021diffusion}.
+
+The basic idea behind diffusion-based generative models is that noise is first added to an initial input,
+where the resulting noisy image is then processed to subsequently remove that noise, while preserving the underlying structure of the image.
+This process is done multiple times where, at each step of this process, the noise level is decreased, and the resulting image becomes more and more refined. After this training, the model can then be used to generate data by passing random noise through the learned denoising process.
+
+Diffusion-based generative models can function either unconditionally or guided such as with GLIDE's text-guided diffusion model, trading "diversity for fidelity"\cite{GLIDE}. There are other examples of this online such as with Google's Imagen, and OpenAI's DALL-E 2.
+
+\section {Motivation}
+
+For my theory-oriented project I wanted to survey diffusion-based generative models, as they have recently exploded in popularity
+and have shown significant improvements in performance compared to previous models. Currently, they excel with image synthesis and are also being adapted for audio, and even video synthesis\cite{karras2022elucidating}\cite{pmlr-v162-nichol22a}.
+Additionally, recent developments with open access to models such as OpenAI's DALL-E 2 have made this a mainstream interest. I find that this topic is both relevant and interesting.
+
+\section {Project Goals}
+
+The goals that I plan to achieve with this project is as follows
+
+\begin{itemize}
+    \item Gain a deeper understanding as to how diffusion models are currently implemented.
+    \item Identify key attributes about diffusion models that are actively being improved or that can be improved.
+    \item Utilize or implement a diffusion model to create a demonstration of it in use, implementing new techniques where possible.
+\end{itemize}
+
+\section{General Timeline}
+
+Figure \ref{fig:gantt} shows the general timeline for this project as a gantt chart.
+
+\begin{figure}[h]
+    \begin{ganttchart}[vgrid={draw=none,draw=none},
+            x unit=0.45cm,
+            y unit title=0.7cm,
+            y unit chart=0.5cm,
+            bar incomplete/.append style={fill=red},
+            milestone label font=\tiny,
+            group label font=\tiny,
+            title label font=\small
+        ]{1}{10}
+        \gantttitle{Mar - Apr}{10} \\
+        \ganttbar{Read relevant literature}{1}{7} \\
+        \ganttbar{Identify key points}{2}{3} \\
+        \ganttbar{Develop proof-of-concept}{6}{8} \\
+        \ganttbar{Write report}{4}{9} \\
+        \ganttbar{Prepare presentaion}{9}{10}
+    \end{ganttchart}
+    \caption{General timeline.}
+    \label{fig:gantt}
+\end{figure}
+
+\section{Team members}
+
+I am the only one on my team, I plan on surveying this topic on my own.
+
+\bibliography{refs}
+\bibliographystyle{ieeetr}
+
+\end{document}

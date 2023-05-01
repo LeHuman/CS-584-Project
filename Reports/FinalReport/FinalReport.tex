@@ -1,0 +1,108 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{pgfgantt}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{%
+    Diffusion Models for Machine Learning \\
+    \huge CS 584 Final Report}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Isaias Rivera}
+    \IEEEauthorblockA{\textit{College of Computing} \\
+        \textit{Illinois Institute of Technology}\\
+        Chicago, Illinois, USA \\
+        irivera3@hawk.iit.edu}
+}
+
+\maketitle
+
+\section{Introduction}
+
+Diffusion models are a type of generative model that utilizes the principles of diffusion to generate realistic data. There are different types of diffusion models
+that have the same underlying idea including, diffusion probabilistic models, noise-conditioned score network,
+and denoising diffusion probabilistic models \cite{weng2021diffusion}.
+
+The basic idea behind diffusion-based generative models is that noise is first added to an initial input,
+where the resulting noisy image is then processed to subsequently remove that noise, while preserving the underlying structure of the image.
+This process is done multiple times where, at each step of this process, the noise level is decreased, and the resulting image becomes more and more refined. After this training, the model can then be used to generate data by passing random noise through the learned denoising process.
+
+Diffusion-based generative models can function either unconditionally or guided such as with GLIDE's text-guided diffusion model, trading "diversity for fidelity"\cite{GLIDE}. There are other examples of this online such as with Google's Imagen, and OpenAI's DALL-E 2.
+
+There are many variations\cite{hoCF}\cite{kerasDDPM}\cite{pmlr-v162-nichol22a}\cite{hugimpl} and different improvements\cite{nichol2021improved}\cite{song2022denoising} to diffusion models that are being actively researched and have already been implemented, however, as in my proposal I mainly have wanted to explore implementing my own in an easily digestible format.
+
+\section {Focus}
+
+The main focus of my project has been with Denoising diffusion probabilistic models, or DDPM for short, as I have found the most literature revolving around this variation on diffusion models. I have not gone further than DDPMs as I wanted to to first get some results before moving on. Regardless, the majority of my research has been with understanding both the math and implementation of every step with a DDPM\cite{nain2022-2}\cite{nain2022-3}\cite{ho2020denoising}.
+
+\section {Implementation}
+
+Thus far, I have a very basic implementation of the forward and backward process of a DDPM. For some components of the process I am still working towards fully understanding and developing an easy to understand notebook, however, I do have a working model, albeit, relatively crude and unoptimized.
+
+My main notebook uses torch to implement everything, however, I have found many implementations that use a variety of APIs.
+
+\subsection{The Forward Process}
+
+The forward process is the step that involves adding noise to data. Given a number of timesteps, gaussian noise is added to data at each step, where subsequent steps are dependent on the output of the previous step. The main equation that describes this, is as follows
+
+$$
+    q(x_{1:T}\vert x_{0})
+    := \prod_{t=1}^{T}q(x_{t}\vert x_{t-1})
+    :=\prod_{t=1}^{T}\mathcal{N}(x_{t};\sqrt{1-\beta_{t}} x_{t-1},\ \beta_{t}\bf I)
+$$
+
+Where $T$ is the total number of timesteps, $\beta_t$ is the variance schedule, where $\beta_t \in (0,1)$ and $\beta_{1} < \beta_{2}...$, it describes the amount of noise we want to add to each timestep. This schedule can simply be set as linear,
+
+\subsection{The Reverse Process}
+
+The reverse process involves sampling the forward process using a random timestep and predicting the noise in that sample. Where a neural network is trained to predict this noise.
+
+The following equation describes this process.
+
+$$
+    p_{\theta}(x_{0:T})
+    := p(x_{T}) \prod_{t=1}^T p_{\theta}(x_{t-1} | x_{t})
+$$
+
+$$
+    := p(x_{T}) \prod_{t=1}^T \mathcal{N}(x_{t-1}; \mu_{\theta}(x_{t}, t), \Sigma_{\theta}(x_{t}, t))
+$$
+
+Where $X_{t-1}$ is predicted using the current timestep.
+
+\subsection{Timestep Embedding}
+
+Timestep Embedding, or positional embedding, is used to ensure that the model can "know" where 
+
+Another thing that I need to touch on is the position embedding, because the model depends on t, in terms of knowing what is the noise level is at any given step, what essentially is done is the timestep is embedded into the input using what is called sinusoidal position embedding. How this is integrated is that a vector is generated for each step and is passed alongside the input data into the U-net model as an additional channel. This embedding helps capture the dynamics of the data over time.
+
+
+\subsection{Loss Function}
+
+
+
+\subsection{U-Net}
+
+\subsection{Training}
+
+\subsection{Sampling}
+
+\subsection{Simplified Example}
+
+\subsection{Improvements}
+
+\subsection{Comparisons}
+
+\subsection{Recent Developments}
+
+\bibliography{refs}
+\bibliographystyle{ieeetr}
+
+\end{document}
